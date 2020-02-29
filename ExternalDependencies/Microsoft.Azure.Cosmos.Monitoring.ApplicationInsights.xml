@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.Cosmos.Monitoring.ApplicationInsights</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringEventProvider">
+             <summary>
+             An Application Insights specific implementation of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider"
+             />, which will redirect logging for request diagnostics to emit Dependency Telemetry in
+             addition to using ILogger for tracing these events (because the ApplicationInsightsLogger
+             will always use Trace Telemetry).
+             </summary>
+             <remarks>
+             When using this event provider it is recommended to suppress request diagnostic traces for
+             ApplicationInsights to avoid that they are emitted for both Trace and Dependency Telemetry.
+             You can suppress them via
+             <code>
+            ILoggingBuilder.AddFilter&lt;ApplicationInsightsLoggerProvider&gt;(TraceCategories.CosmosDBRequestDiagnostics,
+            LogLevel.None)
+             </code>
+             </remarks>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringEventProvider.#ctor(Microsoft.ApplicationInsights.TelemetryClient)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider" /> with the
+            default eventId resolution.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringEventProvider.#ctor(Microsoft.ApplicationInsights.TelemetryClient,System.Collections.Generic.IReadOnlyDictionary{System.String,Microsoft.Extensions.Logging.EventId})">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider" /> with eventId
+            overrides. EventIds in Microsoft.Extensions.Logging only have usage within the scope of
+            a certain ILogger category. ILoggers are usually provided by the application layer,
+            which makes it impossible for libraries to come up with meaningful eventIds. Many
+            implementations of ILogger don't care about eventIds, but when using structured logging
+            like ETW there needs to be a way for the application layer to assign eventIds even for
+            the events emitted from libraries. The apporach chosen here isn't ideal - if a library
+            exposes new events the default eventIds would be used - and it is very possible that the
+            pplication developer won't recognize immediately that new overrides would be needed. But
+            without support for this in the Microsoft.Extensions.Logging abstractions the simply
+            isn't a good way - so using the pragmatic one here instead.
+            </summary>
+            <param name="telemetryClient">
+            The telemetry client that should be used to emit the Dependency telemetry for request metrics.
+            </param>
+            <param name="eventIdResolverOverrides">
+            A list of eventId overrides. The key is the event name according to <see
+            cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents" /> constants.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringEventProvider.LogRequestDiagostics(Microsoft.Extensions.Logging.ILogger,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.String,System.Uri,System.String,System.Nullable{System.DateTimeOffset},System.Nullable{System.TimeSpan},System.Boolean,System.Nullable{System.Double},System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Logs request diagnostics as Dependency telemetry
+            </summary>
+            <param name="logger">
+            The ILogger used to emit the request diagnostics event
+            </param>
+            <param name="additionalScope">
+            Additional context that should be added to the scope for the logged request diagnostics
+            </param>
+            <param name="operation">
+            The operation of the request
+            </param>
+            <param name="activityId">
+            The activityId of the request
+            </param>
+            <param name="requestUri">
+            The request Uri
+            </param>
+            <param name="statusCode">
+            The status code of the response
+            </param>
+            <param name="startTime">
+            The time when the request processing started
+            </param>
+            <param name="latency">
+            The latency
+            </param>
+            <param name="success">
+            Indicator whether the request has been processed successfully
+            </param>
+            <param name="requestCharge">
+            The request charge for processing this request
+            </param>
+            <param name="diagnostics">
+            The diagnostic information formt he response
+            </param>
+            <param name="account">
+            The name of the CosmosDB account
+            </param>
+            <param name="resource">
+            The resource
+            </param>
+            <param name="exception">
+            Details about the error, if the request failed
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringEventProvider.ShouldSuppressSampling(System.String,System.String,System.String,System.Nullable{System.Double},System.Nullable{System.TimeSpan},System.Exception)">
+            <summary>
+            Evaluates request diagnostics information to decide whether to suppress sampling
+            proactively. This would flag telemetry for requests matching certain criteria - like
+            costing above a RU threshold or taking longer than a latency threshold to not be sampled
+            out whenever possible.
+            </summary>
+            <param name="account">
+            The CosmosDB account
+            </param>
+            <param name="resource">
+            The resource (DB/Container)
+            </param>
+            <param name="operation">
+            The operation processed in this request
+            </param>
+            <param name="requestCharge">
+            The request charge of the request
+            </param>
+            <param name="latency">
+            The latency of the request
+            </param>
+            <param name="exception">
+            Any exception during processing the request
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringMetricsEventListener">
+            <summary>
+            CosmosMonitoringMetricsEventListener implementation that can be used to emit metrics to
+            Azure ApplicationInsights
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringMetricsEventListener.#ctor(Microsoft.ApplicationInsights.TelemetryClient,Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes,System.Collections.Generic.IReadOnlyList{System.Double},System.String[],System.String[])">
+            <summary>
+            Instantiates a new instance of the <see
+            cref="T:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringMetricsEventListener" /> class
+            </summary>
+            <param name="telemetryClient">
+            The TelemetryClient used to emit metric to ApplicationInsights
+            </param>
+            <param name="aggregationTypes">
+            The aggregation types that should be emitted to AppplicationInsights
+            </param>
+            <param name="requestedPercentiles">
+            The list of percentiles that should be emitted to ApplicationInsights. This parameter is
+            only relevant if the <see cref="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes.Percentiles" /> flag is
+            set. If null the default percentiles (50th, 90th, 95th, 99th and 99.9th) are emitted
+            </param>
+            <param name="requestMetricDimensionNamesOverride">
+            The dimension names for request diagnostic performance counters. Null means the default
+            dimensions of "Account", "Resource" and "Operation" are used. To be able to use custom
+            dimension here they need to be populated in the implementation of the <see
+            cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringRequestHandler" /> via overrides of "GetAdditionalScopeProperties"
+            and "GetDimensionNamesCore".
+            </param>
+            <param name="queryMetricDimensionNamesOverride">
+            The dimension names for query diagnostic performance counters. Null means the default
+            dimensions of "Account", "Resource" and "QueryName" are used. To be able to use custom
+            dimension here they need to be populated in the corresponding <see
+            cref="T:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition" /> as well by either providing the custom dimension
+            via <see cref="M:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition.WithDimension(System.String,System.Object)" /> or <see
+            cref="M:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition.WithParameter(System.String,System.Object,System.Boolean)" />
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringMetricsEventListener.OnMetricWritten(Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData)">
+            <summary>
+            Emitting metric events to AppInsights
+            </summary>
+            <param name="metricEvent">
+            The metric event details
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ApplicationInsightsCosmosMonitoringMetricsEventListener.GetDimensionNames(System.String)">
+            <summary>
+            Determines the dimension names for the dimensions to report in ApplicationInsights. At
+            most <see cref="F:Microsoft.ApplicationInsights.Metrics.MetricIdentifier.MaxDimensionsCount" /> dimensions can be processed in
+            ApplicationInsights - so at most MetricIdentifier.MaxDimensionsCount dimension names can
+            be returned here.
+            </summary>
+            <remarks>
+            Default implementation will use the first 10 keys in the metadata - like Account,
+            Resource etc.
+            </remarks>
+            <param name="metricName">
+            The name metric event for which the dimensions should be determined
+            </param>
+            <returns>
+            Returns the dimension names for the dimensions to report in ApplicationInsights
+            </returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes">
+            <summary>
+            The list of aggregation types that can be emitted for Cosmos DB metrics.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes.Default">
+            <summary>
+            By default all aggregates will be emitted
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes.None">
+            <summary>
+            No aggregations will be emitted to ApplicationInsights
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes.All">
+            <summary>
+            All ggregates will be emitted
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes.Count">
+            <summary>
+            The sample Count aggregate will be emitted
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes.Min">
+            <summary>
+            The minimum value will be emitted
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes.Max">
+            <summary>
+            The maximum value will be emitted
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes.Avg">
+            <summary>
+            The average value will be emitted
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringAggregationTypes.Percentiles">
+            <summary>
+            Metrics for each of the requested percentiles will be emitted
+            </summary>
+        </member>
+    </members>
+</doc>

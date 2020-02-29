@@ -1,0 +1,2031 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.CounterIdentityEqualityComparer">
+            <summary>
+            Compares counter identities to determine whether they are equal.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.CounterIdentityEqualityComparer.SingletonInstance">
+            <summary>
+            Gets a singleton instance of the <see cref="T:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.CounterIdentityEqualityComparer"/> equality comparer
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.CounterIdentityEqualityComparer.Equals(System.Tuple{System.String,System.String[],System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}},System.Tuple{System.String,System.String[],System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <summary>
+            Determines whether the specified objects are equal.
+            </summary>
+            <param name="x">The first object to compare.</param>
+            <param name="y">The second object to compare.</param>
+            <returns>true if the specified objects are equal; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.CounterIdentityEqualityComparer.GetHashCode(System.Tuple{System.String,System.String[],System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object}})">
+            <summary>
+            Returns a hash code for the specified object.
+            </summary>
+            <param name="obj">The Object for which a hash code is to be returned.</param>
+            <returns>A hash code for the specified object.</returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.CpuUsageEventSource">
+            <summary>
+            EventSource to collect metrics for CPU usage of the current process as well as total system
+            wide CPU usage.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.CpuUsageEventSource.FullyQualifiedName">
+            <summary>
+            The fully qualified name of the TotalCpuUsageEventSource
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.CpuUsageEventSource.SingletonInstance">
+            <summary>
+            Gets the singleton instance of this event source
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.CpuUsageEventSource.Initialize(Microsoft.Extensions.Logging.ILogger,System.Collections.Generic.IReadOnlyDictionary{System.String,System.String})">
+            <summary>
+            Allows configuring the event source. Initialize must be called before accessing the
+            SingletonInstance property (for example when initializing the EventListener)
+            </summary>
+            <param name="logger">
+            An ILogger instance that is used for diagnostic logging
+            </param>
+            <param name="metadata">
+            Additional metadata getting associated with the counter instance - an example would be
+            the machine name.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.#ctor(System.String)">
+            <summary>
+            Allows customization of the proc stat file path to allow testing this on Non-Linux machines
+            </summary>
+            <param name="procStatFilePath">
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser">
+            <summary>
+            Provides a string parser that may be used instead of String.Split to avoid unnecessary
+            string and array allocations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.buffer">
+            <summary>
+            The string being parsed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.separator">
+            <summary>
+            The separator character used to separate subcomponents of the larger string.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.skipEmpty">
+            <summary>
+            true if empty subcomponents should be skipped; false to treat them as valid entries.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.endIndex">
+            <summary>
+            The ending index that represents the next index after the last character that's part
+            of the current entry.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.startIndex">
+            <summary>
+            The starting index from which to parse the current entry.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.#ctor(System.String,System.Char,System.Boolean)">
+            <summary>
+            Initialize the StringParser.
+            </summary>
+            <param name="buffer">
+            The string to parse.
+            </param>
+            <param name="separator">
+            The separator character used to separate subcomponents of <paramref name="buffer" />.
+            </param>
+            <param name="skipEmpty">
+            true if empty subcomponents should be skipped; false to treat them as valid entries.
+            Defaults to false.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ExtractCurrent">
+            <summary>
+            Gets the current subcomponent of the string as a string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ExtractCurrentToEnd">
+            <summary>
+            Gets the current subcomponent and all remaining components of the string as a string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.MoveAndExtractNext">
+            <summary>
+            Moves to the next component of the string and returns it as a string.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.MoveAndExtractNextInOuterParens">
+            <summary>
+            Moves to the next component of the string, which must be enclosed in the only set of
+            top-level parentheses in the string. The extracted value will be everything between
+            (not including) those parentheses.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.MoveNext">
+            <summary>
+            Moves to the next component of the string.
+            </summary>
+            <returns>
+            true if there is a next component to be parsed; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.MoveNextOrFail">
+            <summary>
+            Moves to the next component of the string. If there isn't one, it throws an exception.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ParseNextChar">
+            <summary>
+            Moves to the next component and parses it as a Char.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ParseNextInt32">
+            <summary>
+            Moves to the next component and parses it as an Int32.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ParseNextInt64">
+            <summary>
+            Moves to the next component and parses it as an Int64.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ParseNextUInt32">
+            <summary>
+            Moves to the next component and parses it as a UInt32.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ParseNextUInt64">
+            <summary>
+            Moves to the next component and parses it as a UInt64.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ParseRaw``1(Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ParseRawFunc{``0})">
+            <summary>
+            Moves to the next component and hands the raw buffer and indexing data to a selector
+            function that can validate and return the appropriate data from the component.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.StringParser.ThrowForInvalidData">
+            <summary>
+            Throws unconditionally for invalid data.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.ReusableTextReader">
+            <summary>
+            Provides a reusable reader for reading all of the text from streams.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.ReusableTextReader.builder">
+            <summary>
+            StringBuilder used to store intermediate text results.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.ReusableTextReader.bytes">
+            <summary>
+            Bytes read from the stream.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.ReusableTextReader.chars">
+            <summary>
+            Temporary storage from characters converted from the bytes then written to the builder.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.ReusableTextReader.decoder">
+            <summary>
+            Decoder used to decode data read from the stream.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Abstractions.ProcStatFileParser.ReusableTextReader.#ctor(System.Text.Encoding,System.Int32)">
+            <summary>
+            Initializes a new reusable reader.
+            </summary>
+            <param name="encoding">
+            The Encoding to use. Defaults to UTF8.
+            </param>
+            <param name="bufferSize">
+            The size of the buffer to use when reading from the stream.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter">
+            <summary>
+            DiagnosticCounter is an abstract class that serves as the parent class for various Counter*
+            classes, namely EventCounter, PollingCounter, IncrementingEventCounter, and IncrementingPollingCounter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter.#ctor(System.String,System.Diagnostics.Tracing.EventSource,System.Collections.Generic.IReadOnlyDictionary{System.String,System.String})">
+            <summary>
+            All Counters live as long as the EventSource that they are attached to unless they are
+            explicitly Disposed.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="eventSource">
+            The event source.
+            </param>
+            <param name="metadata">
+            Additional metadata associated with this counter instance
+            </param>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter.DisplayName">
+            <summary>
+            Gets or sets the display name of the counter
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter.DisplayUnits">
+            <summary>
+            Gets or sets the display units of the counter
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter.EventSource">
+            <summary>
+            Gets the event source assoicated with this counter
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter.Name">
+            <summary>
+            Gets the name of this counter
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter.Publish">
+            <summary>
+            Adds the counter to the set that the EventSource will report on.
+            </summary>
+            <remarks>
+            Must only be invoked once, and only after the instance has been fully initialized. This
+            should be invoked by a derived type's ctor as the last thing it does.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter.Dispose">
+            <summary>
+            Cleans up all resources used by this instance
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter.GetMetadataString">
+            <summary>
+            Gets the meata data dictionary formatted as a string
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.DiagnosticCounter.Dispose(System.Boolean)">
+            <summary>
+            Releases all managed resources used by this instance
+            </summary>
+            <param name="disposing">
+            flag to indictae whether this method has been called explicitly from Dispose() or vi
+            athe finalizer
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.Euclid">
+            <summary>
+            Integer number theory functions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.Euclid.IsOdd(System.Int32)">
+            <summary>
+            Find out whether the provided 32 bit integer is an odd number.
+            </summary>
+            <param name="number">
+            The number to very whether it's odd.
+            </param>
+            <returns>
+            True if and only if it is an odd number.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.MemoryExtensions">
+            <summary>
+            Extension methods to sort Spans
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.MemoryExtensions.Sort``1(System.Span{``0})">
+            <summary>
+            Sorts the elements in the entire <see cref="T:System.Span`1" /> using the <see
+            cref="T:System.IComparable`1" /> implementation of each element of the <see cref="T:System.Span`1" />
+            </summary>
+            <typeparam name="T">
+            The type of the elements of the span.
+            </typeparam>
+            <param name="span">
+            The <see cref="T:System.Span`1" /> to sort.
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+            One or more elements in <paramref name="span" /> do not implement the <see
+            cref="T:System.IComparable`1" /> interface.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.MemoryExtensions.Sort``2(System.Span{``0},``1)">
+            <summary>
+            Sorts the elements in the entire <see cref="T:System.Span`1" /> using the <typeparamref
+            name="TComparer" />.
+            </summary>
+            <typeparam name="T">
+            The type of the elements of the span.
+            </typeparam>
+            <typeparam name="TComparer">
+            The type of the comparer to use to compare elements.
+            </typeparam>
+            <param name="span">
+            The <see cref="T:System.Span`1" /> to sort.
+            </param>
+            <param name="comparer">
+            The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or null
+            to use the <see cref="T:System.IComparable`1" /> interface implementation of each element.
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+            <paramref name="comparer" /> is null, and one or more elements in <paramref name="span"
+            /> do not implement the <see cref="T:System.IComparable`1" /> interface.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            The implementation of <paramref name="comparer" /> caused an error during the sort.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.MemoryExtensions.Sort``1(System.Span{``0},System.Comparison{``0})">
+            <summary>
+            Sorts the elements in the entire <see cref="T:System.Span`1" /> using the specified <see
+            cref="T:System.Comparison`1" />.
+            </summary>
+            <typeparam name="T">
+            The type of the elements of the span.
+            </typeparam>
+            <param name="span">
+            The <see cref="T:System.Span`1" /> to sort.
+            </param>
+            <param name="comparison">
+            The <see cref="T:System.Comparison`1" /> to use when comparing elements.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="comparison" /> is null.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.MemoryExtensions.Sort``2(System.Span{``0},System.Span{``1})">
+            <summary>
+            Sorts a pair of spans (one containing the keys and the other containing the
+            corresponding items) based on the keys in the first <see cref="T:System.Span`1" /> using the
+            <see cref="T:System.IComparable`1" /> implementation of each key.
+            </summary>
+            <typeparam name="TKey">
+            The type of the elements of the key span.
+            </typeparam>
+            <typeparam name="TValue">
+            The type of the elements of the items span.
+            </typeparam>
+            <param name="keys">
+            The span that contains the keys to sort.
+            </param>
+            <param name="items">
+            The span that contains the items that correspond to the keys in <paramref name="keys" />.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            The length of <paramref name="keys" /> isn't equal to the length of <paramref
+            name="items" />.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            One or more elements in <paramref name="keys" /> do not implement the <see
+            cref="T:System.IComparable`1" /> interface.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.MemoryExtensions.Sort``3(System.Span{``0},System.Span{``1},``2)">
+            <summary>
+            Sorts a pair of spans (one containing the keys and the other containing the
+            corresponding items) based on the keys in the first <see cref="T:System.Span`1" /> using the
+            specified comparer.
+            </summary>
+            <typeparam name="TKey">
+            The type of the elements of the key span.
+            </typeparam>
+            <typeparam name="TValue">
+            The type of the elements of the items span.
+            </typeparam>
+            <typeparam name="TComparer">
+            The type of the comparer to use to compare elements.
+            </typeparam>
+            <param name="keys">
+            The span that contains the keys to sort.
+            </param>
+            <param name="items">
+            The span that contains the items that correspond to the keys in <paramref name="keys" />.
+            </param>
+            <param name="comparer">
+            The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or null
+            to use the <see cref="T:System.IComparable`1" /> interface implementation of each element.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            The length of <paramref name="keys" /> isn't equal to the length of <paramref
+            name="items" />.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            <paramref name="comparer" /> is null, and one or more elements in <paramref name="keys"
+            /> do not implement the <see cref="T:System.IComparable`1" /> interface.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.MemoryExtensions.Sort``2(System.Span{``0},System.Span{``1},System.Comparison{``0})">
+            <summary>
+            Sorts a pair of spans (one containing the keys and the other containing the
+            corresponding items) based on the keys in the first <see cref="T:System.Span`1" /> using the
+            specified comparison.
+            </summary>
+            <typeparam name="TKey">
+            The type of the elements of the key span.
+            </typeparam>
+            <typeparam name="TValue">
+            The type of the elements of the items span.
+            </typeparam>
+            <param name="keys">
+            The span that contains the keys to sort.
+            </param>
+            <param name="items">
+            The span that contains the items that correspond to the keys in <paramref name="keys" />.
+            </param>
+            <param name="comparison">
+            The <see cref="T:System.Comparison`1" /> to use when comparing elements.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="comparison" /> is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            The length of <paramref name="keys" /> isn't equal to the length of <paramref
+            name="items" />.
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.PollingCounter">
+            <summary>
+            PollingCounter is a variant of EventCounter - it collects and calculates similar statistics
+            as EventCounter. PollingCounter differs from EventCounter in that it takes in a callback
+            function to collect metrics on its own rather than the user having to call WriteMetric()
+            every time.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.PollingCounter.#ctor(System.String,System.Diagnostics.Tracing.EventSource,System.Func{System.Double},System.Collections.Generic.IReadOnlyDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Azure.Cosmos.Extensions.Logging.PollingCounter" /> class. PollingCounter
+            live as long as the EventSource that they are attached to unless they are explicitly Disposed.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="eventSource">
+            The event source.
+            </param>
+            <param name="metricProvider">
+            The delegate to invoke to get the current metric value.
+            </param>
+            <param name="metadata">
+            Additional context associated with this counter instance
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.PollingCounter.ToString">
+            <summary>
+            Gets a textual summary for this counter instance
+            </summary>
+            <returns>
+            A textual summary for this counter instance
+            </returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.PollingPayloadType">
+            <summary>
+            This is the payload that is sent in the with EventSource.Write
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.RankDefinition.Average">
+            <summary>
+            Replace ties with their mean (non-integer ranks). Default.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.RankDefinition.Min">
+            <summary>
+            Replace ties with their minimum (typical sports ranking).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.RankDefinition.Max">
+            <summary>
+            Replace ties with their maximum.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.RankDefinition.First">
+            <summary>
+            Permutation with increasing values at each index of ties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics">
+            <summary>
+            Statistics operating on an array already sorted ascendingly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.EmpiricalCDF(System.Span{System.Double},System.Double)">
+            <summary>
+            Estimates the empirical cumulative distribution function (CDF) at x from the sorted data
+            array (ascending).
+            </summary>
+            <param name="data">
+            The data sample sequence.
+            </param>
+            <param name="x">
+            The value where to estimate the CDF at.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.FiveNumberSummary(System.Span{System.Double})">
+            <summary>
+            Estimates {min, lower-quantile, median, upper-quantile, max} from the sorted data array
+            (ascending). Approximately median-unbiased regardless of the sample distribution (R8).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.InterquartileRange(System.Span{System.Double})">
+            <summary>
+            Estimates the inter-quartile range from the sorted data array (ascending). Approximately
+            median-unbiased regardless of the sample distribution (R8).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.LowerQuartile(System.Span{System.Double})">
+            <summary>
+            Estimates the first quartile value from the sorted data array (ascending). Approximately
+            median-unbiased regardless of the sample distribution (R8).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.Maximum(System.Span{System.Double})">
+            <summary>
+            Returns the largest value from the sorted data array (ascending).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.Median(System.Span{System.Double})">
+            <summary>
+            Estimates the median value from the sorted data array (ascending). Approximately
+            median-unbiased regardless of the sample distribution (R8).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.Minimum(System.Span{System.Double})">
+            <summary>
+            Returns the smallest value from the sorted data array (ascending).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.OrderStatistic(System.Span{System.Double},System.Int32)">
+            <summary>
+            Returns the order statistic (order 1..N) from the sorted data array (ascending).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+            <param name="order">
+            One-based order of the statistic, must be between 1 and N (inclusive).
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.Percentile(System.Span{System.Double},System.Int32)">
+            <summary>
+            Estimates the p-Percentile value from the sorted data array (ascending). If a
+            non-integer Percentile is needed, use Quantile instead. Approximately median-unbiased
+            regardless of the sample distribution (R8).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+            <param name="p">
+            Percentile selector, between 0 and 100 (inclusive).
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.Quantile(System.Span{System.Double},System.Double)">
+            <summary>
+            Estimates the tau-th quantile from the sorted data array (ascending). The tau-th
+            quantile is the data value where the cumulative distribution function crosses tau.
+            Approximately median-unbiased regardless of the sample distribution (R8).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+            <param name="tau">
+            Quantile selector, between 0.0 and 1.0 (inclusive).
+            </param>
+            <remarks>
+            R-8, SciPy-(1/3,1/3): Linear interpolation of the approximate medians for order
+            statistics. When tau &lt; (2/3) / (N + 1/3), use x1. When tau &gt;= (N - 1/3) / (N +
+            1/3), use xN.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.QuantileCustom(System.Span{System.Double},System.Double,Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition)">
+            <summary>
+            Estimates the tau-th quantile from the sorted data array (ascending). The tau-th
+            quantile is the data value where the cumulative distribution function crosses tau. The
+            quantile definition can be specified to be compatible with an existing system.
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+            <param name="tau">
+            Quantile selector, between 0.0 and 1.0 (inclusive).
+            </param>
+            <param name="definition">
+            Quantile definition, to choose what product/definition it should be consistent with
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SortedSpanStatistics.UpperQuartile(System.Span{System.Double})">
+            <summary>
+            Estimates the third quartile value from the sorted data array (ascending). Approximately
+            median-unbiased regardless of the sample distribution (R8).
+            </summary>
+            <param name="data">
+            Sample array, must be sorted ascendingly.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics">
+            <summary>
+            Statistics operating on arrays assumed to be unsorted.
+            WARNING: Methods with the Inplace-suffix may modify the data array by reordering its entries.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.Covariance(System.Span{System.Double},System.Span{System.Double})">
+            <summary>
+            Estimates the unbiased population covariance from the provided two sample arrays. On a
+            dataset of size N will use an N-1 normalizer (Bessel's correction). Returns NaN if data
+            has less than two entries or if any entry is NaN.
+            </summary>
+            <param name="samples1">
+            First sample array.
+            </param>
+            <param name="samples2">
+            Second sample array.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.FiveNumberSummaryInplace(System.Span{System.Double})">
+            <summary>
+            Estimates {min, lower-quantile, median, upper-quantile, max} from the unsorted data
+            array. Approximately median-unbiased regardless of the sample distribution (R8).
+            WARNING: Works inplace and can thus causes the data array to be reordered.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed. Will be reordered.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.GeometricMean(System.Span{System.Double})">
+            <summary>
+            Evaluates the geometric mean of the unsorted data array. Returns NaN if data is empty or
+            any entry is NaN.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.HarmonicMean(System.Span{System.Double})">
+            <summary>
+            Evaluates the harmonic mean of the unsorted data array. Returns NaN if data is empty or
+            any entry is NaN.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.InterquartileRangeInplace(System.Span{System.Double})">
+            <summary>
+            Estimates the inter-quartile range from the unsorted data array. Approximately
+            median-unbiased regardless of the sample distribution (R8).
+            WARNING: Works inplace and can thus causes the data array to be reordered.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed. Will be reordered.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.LowerQuartileInplace(System.Span{System.Double})">
+            <summary>
+            Estimates the first quartile value from the unsorted data array. Approximately
+            median-unbiased regardless of the sample distribution (R8).
+            WARNING: Works inplace and can thus causes the data array to be reordered.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed. Will be reordered.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.Maximum(System.Span{System.Double})">
+            <summary>
+            Returns the largest value from the unsorted data array. Returns NaN if data is empty or
+            any entry is NaN.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.MaximumAbsolute(System.Span{System.Double})">
+            <summary>
+            Returns the largest absolute value from the unsorted data array. Returns NaN if data is
+            empty or any entry is NaN.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.Mean(System.Span{System.Double})">
+            <summary>
+            Estimates the arithmetic sample mean from the unsorted data array. Returns NaN if data
+            is empty or any entry is NaN.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.MeanStandardDeviation(System.Span{System.Double})">
+            <summary>
+            Estimates the arithmetic sample mean and the unbiased population standard deviation from
+            the provided samples as unsorted array. On a dataset of size N will use an N-1
+            normalizer (Bessel's correction). Returns NaN for mean if data is empty or any entry is
+            NaN and NaN for standard deviation if data has less than two entries or if any entry is NaN.
+            </summary>
+            <param name="samples">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.MeanVariance(System.Span{System.Double})">
+            <summary>
+            Estimates the arithmetic sample mean and the unbiased population variance from the
+            provided samples as unsorted array. On a dataset of size N will use an N-1 normalizer
+            (Bessel's correction). Returns NaN for mean if data is empty or any entry is NaN and NaN
+            for variance if data has less than two entries or if any entry is NaN.
+            </summary>
+            <param name="samples">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.MedianInplace(System.Span{System.Double})">
+            <summary>
+            Estimates the median value from the unsorted data array.
+            WARNING: Works inplace and can thus causes the data array to be reordered.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed. Will be reordered.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.Minimum(System.Span{System.Double})">
+            <summary>
+            Returns the smallest value from the unsorted data array. Returns NaN if data is empty or
+            any entry is NaN.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.MinimumAbsolute(System.Span{System.Double})">
+            <summary>
+            Returns the smallest absolute value from the unsorted data array. Returns NaN if data is
+            empty or any entry is NaN.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.OrderStatisticInplace(System.Span{System.Double},System.Int32)">
+            <summary>
+            Returns the order statistic (order 1..N) from the unsorted data array.
+            WARNING: Works inplace and can thus causes the data array to be reordered.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed. Will be reordered.
+            </param>
+            <param name="order">
+            One-based order of the statistic, must be between 1 and N (inclusive).
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.PercentileInplace(System.Span{System.Double},System.Int32)">
+            <summary>
+            Estimates the p-Percentile value from the unsorted data array. If a non-integer
+            Percentile is needed, use Quantile instead. Approximately median-unbiased regardless of
+            the sample distribution (R8).
+            WARNING: Works inplace and can thus causes the data array to be reordered.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed. Will be reordered.
+            </param>
+            <param name="p">
+            Percentile selector, between 0 and 100 (inclusive).
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.PopulationCovariance(System.Span{System.Double},System.Span{System.Double})">
+            <summary>
+            Evaluates the population covariance from the full population provided as two arrays. On
+            a dataset of size N will use an N normalizer and would thus be biased if applied to a
+            subset. Returns NaN if data is empty or if any entry is NaN.
+            </summary>
+            <param name="population1">
+            First population array.
+            </param>
+            <param name="population2">
+            Second population array.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.PopulationStandardDeviation(System.Span{System.Double})">
+            <summary>
+            Evaluates the population standard deviation from the full population provided as
+            unsorted array. On a dataset of size N will use an N normalizer and would thus be biased
+            if applied to a subset. Returns NaN if data is empty or if any entry is NaN.
+            </summary>
+            <param name="population">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.PopulationVariance(System.Span{System.Double})">
+            <summary>
+            Evaluates the population variance from the full population provided as unsorted array.
+            On a dataset of size N will use an N normalizer and would thus be biased if applied to a
+            subset. Returns NaN if data is empty or if any entry is NaN.
+            </summary>
+            <param name="population">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.QuantileCustomInplace(System.Span{System.Double},System.Double,Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition)">
+            <summary>
+            Estimates the tau-th quantile from the unsorted data array. The tau-th quantile is the
+            data value where the cumulative distribution function crosses tau. The quantile
+            definition can be specified to be compatible with an existing system.
+            WARNING: Works inplace and can thus causes the data array to be reordered.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed. Will be reordered.
+            </param>
+            <param name="tau">
+            Quantile selector, between 0.0 and 1.0 (inclusive)
+            </param>
+            <param name="definition">
+            Quantile definition, to choose what product/definition it should be consistent with
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.QuantileInplace(System.Span{System.Double},System.Double)">
+            <summary>
+            Estimates the tau-th quantile from the unsorted data array. The tau-th quantile is the
+            data value where the cumulative distribution function crosses tau. Approximately
+            median-unbiased regardless of the sample distribution (R8).
+            WARNING: Works inplace and can thus causes the data array to be reordered.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed. Will be reordered.
+            </param>
+            <param name="tau">
+            Quantile selector, between 0.0 and 1.0 (inclusive).
+            </param>
+            <remarks>
+            R-8, SciPy-(1/3,1/3): Linear interpolation of the approximate medians for order
+            statistics. When tau &lt; (2/3) / (N + 1/3), use x1. When tau &gt;= (N - 1/3) / (N +
+            1/3), use xN.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.RootMeanSquare(System.Span{System.Double})">
+            <summary>
+            Estimates the root mean square (RMS) also known as quadratic mean from the unsorted data
+            array. Returns NaN if data is empty or any entry is NaN.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.StandardDeviation(System.Span{System.Double})">
+            <summary>
+            Estimates the unbiased population standard deviation from the provided samples as
+            unsorted array. On a dataset of size N will use an N-1 normalizer (Bessel's correction).
+            Returns NaN if data has less than two entries or if any entry is NaN.
+            </summary>
+            <param name="samples">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.UpperQuartileInplace(System.Span{System.Double})">
+            <summary>
+            Estimates the third quartile value from the unsorted data array. Approximately
+            median-unbiased regardless of the sample distribution (R8).
+            WARNING: Works inplace and can thus causes the data array to be reordered.
+            </summary>
+            <param name="data">
+            Sample array, no sorting is assumed. Will be reordered.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.SpanStatistics.Variance(System.Span{System.Double})">
+            <summary>
+            Estimates the unbiased population variance from the provided samples as unsorted array.
+            On a dataset of size N will use an N-1 normalizer (Bessel's correction). Returns NaN if
+            data has less than two entries or if any entry is NaN.
+            </summary>
+            <param name="samples">
+            Sample array, no sorting is assumed.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerEventType">
+            <summary>
+            Indicates the event type for a trace entry
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerEventType.Trace">
+            <summary>
+            A generic trace
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerEventType.Request">
+            <summary>
+            A request processed by the component emitting the log (like a Controller in Asp.Net)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerEventType.Dependency">
+            <summary>
+            A dependency that had been invoked
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerEventType.Exception">
+            <summary>
+            An exception event
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerEventType.Metric">
+            <summary>
+            A metric / perf counter value being logged
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended">
+            <summary>
+            Creates delegates which can be later cached to log messages in a performant way.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``2(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``3(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``4(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``5(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``6(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``7(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``8(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T8">
+            The type of the eigth parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``9(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T8">
+            The type of the eigth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T9">
+            The type of the ninth parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``10(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T8">
+            The type of the eigth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T9">
+            The type of the ninth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T10">
+            The type of the tenth parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``11(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T8">
+            The type of the eigth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T9">
+            The type of the ninth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T10">
+            The type of the tenth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T11">
+            The type of the eleventh parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.Define``12(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
+            <summary>
+            Creates a delegate which can be invoked for logging a message.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T8">
+            The type of the eigth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T9">
+            The type of the ninth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T10">
+            The type of the tenth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T11">
+            The type of the eleventh parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T12">
+            The type of the twelveth parameter passed to the named format string.
+            </typeparam>
+            <param name="logLevel">
+            The <see cref="T:Microsoft.Extensions.Logging.LogLevel" />
+            </param>
+            <param name="eventId">
+            The event id
+            </param>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log message.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``1(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``2(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``3(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``4(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``5(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``6(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``7(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``8(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T8">
+            The type of the eigth parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``9(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T8">
+            The type of the eigth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T9">
+            The type of the ninth parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.LoggerMessageExtended.DefineScope``10(System.String)">
+            <summary>
+            Creates a delegate which can be invoked to create a log scope.
+            </summary>
+            <typeparam name="T1">
+            The type of the first parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T2">
+            The type of the second parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T3">
+            The type of the third parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T4">
+            The type of the fourth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T5">
+            The type of the fifth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T6">
+            The type of the sixth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T7">
+            The type of the seventh parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T8">
+            The type of the eigth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T9">
+            The type of the ninth parameter passed to the named format string.
+            </typeparam>
+            <typeparam name="T10">
+            The type of the tenth parameter passed to the named format string.
+            </typeparam>
+            <param name="formatString">
+            The named format string
+            </param>
+            <returns>
+            A delegate which when invoked creates a log scope.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.LogValuesFormatterExtended">
+            <summary>
+            Formatter to convert the named format items like {NamedformatItem} to String.Format format.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter">
+             <summary>
+             Provides the ability to collect statistics through EventSource
+            
+             See
+             https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.Tracing/documentation/EventCounterTutorial.md
+             for a tutorial guide.
+            
+             See
+             https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.Tracing/tests/BasicEventSourceTest/TestEventCounter.cs
+             which shows tests, which are also useful in seeing actual use.
+             </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter.#ctor(System.String,System.String,System.String,System.Buffers.MemoryPool{System.Double},System.Int32,System.Diagnostics.Tracing.EventSource,Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition,System.Collections.Generic.IReadOnlyList{System.Double},System.Collections.Generic.IReadOnlyDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Diagnostics.Tracing.EventCounter" /> class. EVentCounters live
+            as long as the EventSource that they are attached to unless they are explicitly Disposed.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="dimension">
+            The dimension of this counter
+            </param>
+            <param name="counterType">
+            The typ of this counter
+            </param>
+            <param name="pool">
+            The memory pool that should be used to acquire buffers by this counter instance
+            </param>
+            <param name="capacity">
+            The number of raw signal values that can be buffer by this counter before flushing. This
+            should ideally be high enough to allow reasonable calculation of percentiles - like when
+            you request 99th percentile it doesn't make sense to allow only 50 raw signal values.
+            </param>
+            <param name="eventSource">
+            The event source.
+            </param>
+            <param name="quantileDefinition">
+            The algorithm that should be used to calculate percentiles
+            </param>
+            <param name="requestedPercentiles">
+            The percentiles that should be emitted
+            </param>
+            <param name="metadata">
+            Additional context associated with this counter instance
+            </param>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter.Capacity">
+            <summary>
+            Gets the number of raw signal values that can be buffer for each counter event
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter.CounterType">
+            <summary>
+            Gets the type of this counter instance
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter.Dimension">
+            <summary>
+            Gets the dimension of this counter instance
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter.ToString">
+            <summary>
+            Gets a textual summary for this counter instance
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter.WriteMetric(System.Single)">
+            <summary>
+            Writes 'value' to the stream of values tracked by the counter. This updates the sum and
+            other statistics that will be logged on the next timer interval.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter.WriteMetric(System.Double)">
+            <summary>
+            Writes 'value' to the stream of values tracked by the counter. This updates the sum and
+            other statistics that will be logged on the next timer interval.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter.InternalBuffer.Flush">
+            <summary>
+            Only one thread will every be able to process Flush. Flush is used to ensure that
+            calls to TryEnqueue, which are still in flight and passed the entry barrier (index
+            &lt; capacity), can complete before starting to emit the payload
+            </summary>
+            <remarks>
+            The synchornization mechanism depends on the behavior that each call to TryEnqueue
+            for which the initial increment of this.index returns an index within the range of
+            the buffer will eventually increase this.count as well after adding the measurement.
+            So it is very important that this.count is always incremented when returning true.
+            </remarks>
+            <returns>
+            True if this call had any side effects that would require emitting payload. False if
+            the buffer is empty or another call to Flush was triggering side effects. Every
+            caller is responsible for triggering subsequent WritePayload if true is returned and
+            the it is desired to not loose the telemetry in the current buffer
+            (CounterGrup.ResetCounters) would intentionally ignore previous payload.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounter.InternalBuffer.TryEnqueue(System.Double)">
+            <summary>
+            Attempts to enqueue a new measurement.
+            </summary>
+            <param name="value">
+            The measurement to be added
+            </param>
+            <returns>
+            True if the measurement could be added to the current buffer. False if the buffer is
+            full to indicate to the caller that a new buffer needs to be initialized
+            </returns>
+            <remarks>
+            The synchornization mechanism depends on the behavior that each call to TryEnqueue
+            for which the initial increment of this.index returns an index within the range of
+            the buffer will eventually increase this.count as well after adding the measurement.
+            So it is very important that this.count is always incremented when returning true.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.PercentilesEventCounterPayloadType">
+            <summary>
+            This is the payload that is sent in the with EventSource.Write
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition">
+            <summary>
+            See https://en.wikipedia.org/wiki/Quantile for a descripton of the different modes
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R1">
+            <summary>
+            R1 - Inverse of empirical distribution function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.SAS3">
+            <summary>
+            SAS3 - Inverse of empirical distribution function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.EmpiricalInvCDF">
+            <summary>
+            EmpiricalInvCDF - Inverse of empirical distribution function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R2">
+            <summary>
+            R2 - Inverse of empirical distribution function, but with averaging at discontinuities.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.SAS5">
+            <summary>
+            SAS5 - Inverse of empirical distribution function, but with averaging at discontinuities.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.EmpiricalInvCDFAverage">
+            <summary>
+            EmpiricalInvCDFAverage - Inverse of empirical distribution function, but with averaging
+            at discontinuities.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R3">
+            <summary>
+            R3 - The observation numbered closest to Np. Here, ⌊h⌉ indicates rounding to the nearest
+            integer, choosing the even integer in the case of a tie.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.SAS2">
+            <summary>
+            SAS2 - The observation numbered closest to Np. Here, ⌊h⌉ indicates rounding to the
+            nearest integer, choosing the even integer in the case of a tie.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Nearest">
+            <summary>
+            Nearest - The observation numbered closest to Np. Here, ⌊h⌉ indicates rounding to the
+            nearest integer, choosing the even integer in the case of a tie.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R4">
+            <summary>
+            R4 - Linear interpolation of the empirical distribution function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.SAS1">
+            <summary>
+            SAS1 - Linear interpolation of the empirical distribution function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.California">
+            <summary>
+            California - Linear interpolation of the empirical distribution function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R5">
+            <summary>
+            R5 - Piecewise linear function where the knots are the values midway through the steps
+            of the empirical distribution function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Hydrology">
+            <summary>
+            Hydrology - Piecewise linear function where the knots are the values midway through the
+            steps of the empirical distribution function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Hazen">
+            <summary>
+            Hazen - Piecewise linear function where the knots are the values midway through the
+            steps of the empirical distribution function.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R6">
+            <summary>
+            R6 - Linear interpolation of the expectations for the order statistics for the uniform
+            distribution on [0,1]. That is, it is the linear interpolation between points (ph, xh),
+            where ph = h/(N+1) is the probability that the last of (N+1) randomly drawn values will
+            not exceed the h-th smallest of the first N randomly drawn values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.SAS4">
+            <summary>
+            SAS4 - Linear interpolation of the expectations for the order statistics for the uniform
+            distribution on [0,1]. That is, it is the linear interpolation between points (ph, xh),
+            where ph = h/(N+1) is the probability that the last of (N+1) randomly drawn values will
+            not exceed the h-th smallest of the first N randomly drawn values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Nist">
+            <summary>
+            Nist - Linear interpolation of the expectations for the order statistics for the uniform
+            distribution on [0,1]. That is, it is the linear interpolation between points (ph, xh),
+            where ph = h/(N+1) is the probability that the last of (N+1) randomly drawn values will
+            not exceed the h-th smallest of the first N randomly drawn values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Weibull">
+            <summary>
+            Weibull - Linear interpolation of the expectations for the order statistics for the
+            uniform distribution on [0,1]. That is, it is the linear interpolation between points
+            (ph, xh), where ph = h/(N+1) is the probability that the last of (N+1) randomly drawn
+            values will not exceed the h-th smallest of the first N randomly drawn values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.SPSS">
+            <summary>
+            SPSS - Linear interpolation of the expectations for the order statistics for the uniform
+            distribution on [0,1]. That is, it is the linear interpolation between points (ph, xh),
+            where ph = h/(N+1) is the probability that the last of (N+1) randomly drawn values will
+            not exceed the h-th smallest of the first N randomly drawn values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R7">
+            <summary>
+            R7 - Linear interpolation of the modes for the order statistics for the uniform
+            distribution on [0,1].
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Excel">
+            <summary>
+            Excel - Linear interpolation of the modes for the order statistics for the uniform
+            distribution on [0,1].
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Mode">
+            <summary>
+            Mode - Linear interpolation of the modes for the order statistics for the uniform
+            distribution on [0,1].
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.S">
+            <summary>
+            S - Linear interpolation of the modes for the order statistics for the uniform
+            distribution on [0,1].
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R8">
+            <summary>
+            R8 - Linear interpolation of the approximate medians for order statistics.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Median">
+            <summary>
+            Median - Linear interpolation of the approximate medians for order statistics.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Default">
+            <summary>
+            Default - Linear interpolation of the approximate medians for order statistics.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R9">
+            <summary>
+            R9 - The resulting quantile estimates are approximately unbiased for the expected order
+            statistics if x is normally distributed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.Normal">
+            <summary>
+            Normal - The resulting quantile estimates are approximately unbiased for the expected
+            order statistics if x is normally distributed.
+            </summary>
+        </member>
+    </members>
+</doc>

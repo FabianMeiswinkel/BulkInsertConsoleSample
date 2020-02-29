@@ -1,0 +1,5 @@
+{
+  "CosmosConnectionString": "<YourConnectionString/>",
+  "TargetDatabase": "BulkInsertSample",
+  "TargetContainer": "PricePaidData"
+}

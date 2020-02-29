@@ -1,0 +1,1123 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.Cosmos.Monitoring.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.ConnectionStringExtensions">
+            <summary>
+            Extension methods to extract values from the CosmosDB connection string
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ConnectionStringExtensions.GetAccountEndpointFromConnectionString(System.String)">
+            <summary>
+            Returns the account endpoint from the CosmosDB connection string
+            </summary>
+            <param name="connectionString">
+            The CosmosDB connection string
+            </param>
+            <returns>
+            Returns the account endpoint from the CosmosDB connection string
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ConnectionStringExtensions.GetAccountNameFromAccountEndpoint(System.Uri)">
+            <summary>
+            Returns the account name from CosmosDB endpoint Uri
+            </summary>
+            <param name="accountEndpoint">
+            The CosmosDB endpoint Uri
+            </param>
+            <returns>
+            Returns the account name from CosmosDB endpoint Uri
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ConnectionStringExtensions.GetAccountNameFromConnectionString(System.String)">
+            <summary>
+            Returns the account name from the CosmosDB connection string
+            </summary>
+            <param name="connectionString">
+            The CosmosDB connection string
+            </param>
+            <returns>
+            Returns the account name from the CosmosDB connection string
+            </returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.ContainerExtensions">
+            <summary>
+            Extension methods to retrieve FeedIterators for queries
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ContainerExtensions.GetMonitoringItemQueryIterator``1(Microsoft.Azure.Cosmos.Container,Microsoft.Azure.Cosmos.Database,Microsoft.Extensions.Logging.ILogger,System.String,System.String,Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition,System.String,Microsoft.Azure.Cosmos.QueryRequestOptions,Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider,System.Boolean)">
+            <summary>
+            Gets a feed iterator that is emitting logs and metrics to the collection of listeners.
+            </summary>
+            <param name="container">
+            The CosmosDB container
+            </param>
+            <param name="database">
+            The CosmosDB database
+            </param>
+            <param name="logger">
+            The logger that should be used to emit telemtry for this query
+            </param>
+            <param name="account">
+            The CosmosDB account name
+            </param>
+            <param name="queryName">
+            The logical name of the query. This can be used to create different instances of
+            performance counters etc. for different logical query types against the same resource/container/collection.
+            </param>
+            <param name="queryDefinition">
+            The cosmos SQL query definition.
+            </param>
+            <param name="continuationToken">
+            (Optional) The continuation token in the Azure Cosmos DB service.
+            </param>
+            <param name="requestOptions">
+            (Optional) The options for the item query request <see cref="T:Microsoft.Azure.Cosmos.QueryRequestOptions" />
+            </param>
+            <param name="eventProvider">
+            An event provider that can be used to override the <see cref="T:Microsoft.Extensions.Logging.EventId" /> provider. This
+            can be necessary when a caller wants to define the id-namespace for events.
+            </param>
+            <param name="shouldLogQueryParameters">
+            (Optional) Inidcator whether the values of query parameters are logged. By default this
+            is disabled to prevent accidentally exposing privacy related information that might be
+            contained in the query parameter values.
+            </param>
+            <returns>
+            An iterator to go through the items and emitting logs and metrics to the collectiono of listeners.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ContainerExtensions.GetMonitoringItemQueryIterator``1(Microsoft.Azure.Cosmos.Container,System.String,Microsoft.Extensions.Logging.ILogger,System.String,System.String,Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition,System.String,Microsoft.Azure.Cosmos.QueryRequestOptions,Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider,System.Boolean)">
+            <summary>
+            Gets a feed iterator that is emitting logs and metrics to the collection of listeners.
+            </summary>
+            <param name="container">
+            The CosmosDB container
+            </param>
+            <param name="databaseId">
+            The CosmosDB database name
+            </param>
+            <param name="logger">
+            The logger that should be used to emit telemtry for this query
+            </param>
+            <param name="account">
+            The CosmosDB account name
+            </param>
+            <param name="queryName">
+            The logical name of the query. This can be used to create different instances of
+            performance counters etc. for different logical query types against the same resource/container/collection.
+            </param>
+            <param name="queryDefinition">
+            The cosmos SQL query definition.
+            </param>
+            <param name="continuationToken">
+            (Optional) The continuation token in the Azure Cosmos DB service.
+            </param>
+            <param name="requestOptions">
+            (Optional) The options for the item query request <see cref="T:Microsoft.Azure.Cosmos.QueryRequestOptions" />
+            </param>
+            <param name="eventProvider">
+            An event provider that can be used to override the <see cref="T:Microsoft.Extensions.Logging.EventId" /> provider. This
+            can be necessary when a caller wants to define the id-namespace for events.
+            </param>
+            <param name="shouldLogQueryParameters">
+            (Optional) Inidcator whether the values of query parameters are logged. By default this
+            is disabled to prevent accidentally exposing privacy related information that might be
+            contained in the query parameter values.
+            </param>
+            <returns>
+            An iterator to go through the items and emitting logs and metrics to the collectiono of listeners.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ContainerExtensions.GetMonitoringItemQueryStreamIterator(Microsoft.Azure.Cosmos.Container,Microsoft.Azure.Cosmos.Database,Microsoft.Extensions.Logging.ILogger,System.String,System.String,Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition,System.String,Microsoft.Azure.Cosmos.QueryRequestOptions,Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider,System.Boolean)">
+            <summary>
+            Gets a feed iterator that is emitting logs and metrics to the collection of listeners.
+            </summary>
+            <param name="container">
+            The CosmosDB container
+            </param>
+            <param name="database">
+            The CosmosDB database
+            </param>
+            <param name="logger">
+            The logger that should be used to emit telemtry for this query
+            </param>
+            <param name="account">
+            The CosmosDB account name
+            </param>
+            <param name="queryName">
+            The logical name of the query. This can be used to create different instances of
+            performance counters etc. for different logical query types against the same resource/container/collection.
+            </param>
+            <param name="queryDefinition">
+            The cosmos SQL query definition.
+            </param>
+            <param name="continuationToken">
+            (Optional) The continuation token in the Azure Cosmos DB service.
+            </param>
+            <param name="requestOptions">
+            (Optional) The options for the item query request <see cref="T:Microsoft.Azure.Cosmos.QueryRequestOptions" />
+            </param>
+            <param name="eventProvider">
+            An event provider that can be used to override the <see cref="T:Microsoft.Extensions.Logging.EventId" /> provider. This
+            can be necessary when a caller wants to define the id-namespace for events.
+            </param>
+            <param name="shouldLogQueryParameters">
+            (Optional) Inidcator whether the values of query parameters are logged. By default this
+            is disabled to prevent accidentally exposing privacy related information that might be
+            contained in the query parameter values.
+            </param>
+            <returns>
+            An iterator to go through the items and emitting logs and metrics to the collectiono of listeners.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ContainerExtensions.GetMonitoringItemQueryStreamIterator(Microsoft.Azure.Cosmos.Container,System.String,Microsoft.Extensions.Logging.ILogger,System.String,System.String,Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition,System.String,Microsoft.Azure.Cosmos.QueryRequestOptions,Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider,System.Boolean)">
+            <summary>
+            Gets a feed iterator that is emitting logs and metrics to the collection of listeners.
+            </summary>
+            <param name="container">
+            The CosmosDB container
+            </param>
+            <param name="databaseId">
+            The CosmosDB database name
+            </param>
+            <param name="logger">
+            The logger that should be used to emit telemtry for this query
+            </param>
+            <param name="account">
+            The CosmosDB account name
+            </param>
+            <param name="queryName">
+            The logical name of the query. This can be used to create different instances of
+            performance counters etc. for different logical query types against the same resource/container/collection.
+            </param>
+            <param name="queryDefinition">
+            The cosmos SQL query definition.
+            </param>
+            <param name="continuationToken">
+            (Optional) The continuation token in the Azure Cosmos DB service.
+            </param>
+            <param name="requestOptions">
+            (Optional) The options for the item query request <see cref="T:Microsoft.Azure.Cosmos.QueryRequestOptions" />
+            </param>
+            <param name="eventProvider">
+            An event provider that can be used to override the <see cref="T:Microsoft.Extensions.Logging.EventId" /> provider. This
+            can be necessary when a caller wants to define the id-namespace for events.
+            </param>
+            <param name="shouldLogQueryParameters">
+            (Optional) Inidcator whether the values of query parameters are logged. By default this
+            is disabled to prevent accidentally exposing privacy related information that might be
+            contained in the query parameter values.
+            </param>
+            <returns>
+            An iterator to go through the items and emitting logs and metrics to the collectiono of listeners.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider">
+            <summary>
+            A helper class for resolving <see cref="T:Microsoft.Extensions.Logging.EventId" /> instances for certain event names as
+            well as logging events
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider" /> with the
+            default eventId resolution.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.#ctor(System.Collections.Generic.IReadOnlyDictionary{System.String,Microsoft.Extensions.Logging.EventId})">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider" /> with eventId
+            overrides. EventIds in Microsoft.Extensions.Logging only have usage within the scope of
+            a certain ILogger category. ILoggers are usually provided by the application layer,
+            which makes it impossible for libraries to come up with meaningful eventIds. Many
+            implementations of ILogger don't care about eventIds, but when using structured logging
+            like ETW there needs to be a way for the application layer to assign eventIds even for
+            the events emitted from libraries. The apporach chosen here isn't ideal - if a library
+            exposes new events the default eventIds would be used - and it is very possible that the
+            pplication developer won't recognize immediately that new overrides would be needed. But
+            without support for this in the Microsoft.Extensions.Logging abstractions the simply
+            isn't a good way - so using the pragmatic one here instead.
+            </summary>
+            <param name="eventIdResolverOverrides">
+            A list of eventId overrides. The key is the event name according to <see
+            cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents" /> constants.
+            </param>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.Default">
+            <summary>
+            Returns a cached default instance
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.Resolve(System.String)">
+            <summary>
+            Resolved an event name and return the corresponding <see cref="T:Microsoft.Extensions.Logging.EventId" />
+            </summary>
+            <param name="eventName">
+            The name of the event. You can find supported event names at <see
+            cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents" />
+            </param>
+            <returns>
+            Return the corresponding <see cref="T:Microsoft.Extensions.Logging.EventId" /> for a certain event name
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.LogPerfCounterSummary(Microsoft.Extensions.Logging.ILogger,Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData)">
+            <summary>
+            Logs a perf counter summary with preaggregated results
+            </summary>
+            <param name="logger">
+            The ILogger used for logging
+            </param>
+            <param name="metricEvent">
+            The preaggregated results
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.LogQueryCompletion(Microsoft.Extensions.Logging.ILogger,Microsoft.Azure.Cosmos.Monitoring.QueryInformation,System.Double,System.Double)">
+            <summary>
+            Logs the successful completion of processing a query
+            </summary>
+            <param name="logger">
+            The ILogger used for logging
+            </param>
+            <param name="queryInfo">
+            INfomration about the query to be executed
+            </param>
+            <param name="totalRUs">
+            The total request charge to retrieve the query page
+            </param>
+            <param name="latencyMs">
+            The laatency in milliseocnds
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.LogQueryPageCompletion(Microsoft.Extensions.Logging.ILogger,System.String,System.Double,System.Double,System.String)">
+            <summary>
+            Logs a successful attempt of retrieving the next page of query results
+            </summary>
+            <param name="logger">
+            The ILogger used for logging
+            </param>
+            <param name="queryPageId">
+            The query page identifier
+            </param>
+            <param name="totalRUs">
+            The total request charge to retrieve the query page
+            </param>
+            <param name="latencyMs">
+            The laatency in milliseocnds
+            </param>
+            <param name="diagnostics">
+            The diagnostic information from the response
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.LogQueryPageFailure(Microsoft.Extensions.Logging.ILogger,System.String,System.Double,System.Double,System.String,System.Exception)">
+            <summary>
+            Logs a failure when trying to retrieve the next page of query results
+            </summary>
+            <param name="logger">
+            The ILogger used for logging
+            </param>
+            <param name="queryPageId">
+            The query page identifier
+            </param>
+            <param name="totalRUs">
+            The total request charge to retrieve the query page
+            </param>
+            <param name="latencyMs">
+            The laatency in milliseocnds
+            </param>
+            <param name="diagnostics">
+            The diagnostic information from the response
+            </param>
+            <param name="exception">
+            Details about the error, if the request failed
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.LogQueryPageStart(Microsoft.Extensions.Logging.ILogger,System.String)">
+            <summary>
+            Logs the attempt to retrieve the next page of query results
+            </summary>
+            <param name="logger">
+            The ILogger used for logging
+            </param>
+            <param name="queryPageId">
+            The query page identifier
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.LogQueryStart(Microsoft.Extensions.Logging.ILogger,Microsoft.Azure.Cosmos.Monitoring.QueryInformation)">
+            <summary>
+            Logs the begin of a query
+            </summary>
+            <param name="logger">
+            The ILogger used for logging
+            </param>
+            <param name="queryInfo">
+            INfomration about the query to be executed
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider.LogRequestDiagostics(Microsoft.Extensions.Logging.ILogger,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.String,System.Uri,System.String,System.Nullable{System.DateTimeOffset},System.Nullable{System.TimeSpan},System.Boolean,System.Nullable{System.Double},System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Logs request diagnostics
+            </summary>
+            <param name="logger">
+            The ILogger used to emit the request diagnostics event
+            </param>
+            <param name="additionalScope">
+            Additional context that should be added to the scope for the logged request diagnostics
+            </param>
+            <param name="operation">
+            The operation of the request
+            </param>
+            <param name="activityId">
+            The activityId of the request
+            </param>
+            <param name="requestUri">
+            The request Uri
+            </param>
+            <param name="statusCode">
+            The status code of the response
+            </param>
+            <param name="startTime">
+            The time when the request processing started
+            </param>
+            <param name="latency">
+            The latency
+            </param>
+            <param name="success">
+            Indicator whether the request has been processed successfully
+            </param>
+            <param name="requestCharge">
+            The request charge for processing this request
+            </param>
+            <param name="diagnostics">
+            The diagnostic information from the response
+            </param>
+            <param name="account">
+            The name of the CosmosDB account
+            </param>
+            <param name="resource">
+            The resource
+            </param>
+            <param name="exception">
+            Details about the error, if the request failed
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents">
+            <summary>
+            Event names that can be used to define EventId overrides
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents.LogPerfCounterRawValuesEvent">
+            <summary>
+            Name of the event with information about the perf counter summary for an interval
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents.LogPerfCounterSummaryEvent">
+            <summary>
+            Name of the event with information about the perf counter summary for an interval
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents.LogQueryCompletionEvent">
+            <summary>
+            Name of the event signaling processing of an entire query completed
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents.LogQueryPageCompletionEvent">
+            <summary>
+            Name of the event signaling processing of a query page completed successfully
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents.LogQueryPageFailureEvent">
+            <summary>
+            Name of the event signaling processing of a query page failed
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents.LogQueryPageStartEvent">
+            <summary>
+            Name of the event scope for processing a query page
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents.LogQueryStartEvent">
+            <summary>
+            Name of the event scope for processing a query
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEvents.LogRequestDiagnosticsEvent">
+            <summary>
+            Name of the event with information about request/response pairs for calls to the service
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringExtensions">
+            <summary>
+            Cosmos monitoring extensions
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringExtensions.EnableCosmosMetricEventListeners(System.IServiceProvider,System.UInt32)">
+            <summary>
+            Enables all registered Cosmos metric event listeners with a certain collection interval
+            </summary>
+            <param name="serviceProvider">
+            The dependency injection container
+            </param>
+            <param name="counterIntervalInSeconds">
+            The interval in seconds used to collect couner signals. Counters will emit events even
+            before this interval is reached if the number of collected signals excceeds their
+            capacity. But when this interval is reached an event is emitted in any case. The
+            interval must be between 1 second and 1 hour.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator">
+            <summary>
+            Feed iterator adding query telemtry.
+            </summary>
+            <remarks>
+            Unlike the base class it implements IDisposable.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator.HasMoreResults">
+            <summary>
+            Gets a flag indicating whether more results can be expected
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator.Dispose">
+            <summary>
+            Cleans up managed and unmanaged resources
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator.ReadNextAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the next set of results from the cosmos service
+            </summary>
+            <param name="cancellationToken">
+            (Optional) CancellationToken representing request cancellation.
+            </param>
+            <returns>
+            A query response from cosmos service
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator.Dispose(System.Boolean)">
+            <summary>
+            Dispose(bool disposing) executes in two distinct scenarios. If disposing equals true,
+            the method has been called directly or indirectly by a user's code. Managed and
+            unmanaged resources can be disposed. If disposing equals false, the method has been
+            called by the runtime from inside the finalizer and you should not reference other
+            objects. Only unmanaged resources can be disposed.
+            </summary>
+            <param name="disposing">
+            If disposing equals true, the method has been called directly or indirectly by a user's
+            code. Managed and unmanaged resources can be disposed.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator`1">
+            <summary>
+            Feed iterator adding query telemtry.
+            </summary>
+            <remarks>
+            Unlike the base class it implements IDisposable.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator`1.HasMoreResults">
+            <summary>
+            Gets a flag indicating whether more results can be expected
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator`1.Dispose">
+            <summary>
+            Cleans up managed and unmanaged resources
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator`1.ReadNextAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the next set of results from the cosmos service
+            </summary>
+            <param name="cancellationToken">
+            (Optional) CancellationToken representing request cancellation.
+            </param>
+            <returns>
+            A query response from cosmos service
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringFeedIterator`1.Dispose(System.Boolean)">
+            <summary>
+            Dispose(bool disposing) executes in two distinct scenarios. If disposing equals true,
+            the method has been called directly or indirectly by a user's code. Managed and
+            unmanaged resources can be disposed. If disposing equals false, the method has been
+            called by the runtime from inside the finalizer and you should not reference other
+            objects. Only unmanaged resources can be disposed.
+            </summary>
+            <param name="disposing">
+            If disposing equals true, the method has been called directly or indirectly by a user's
+            code. Managed and unmanaged resources can be disposed.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData">
+            <summary>
+            Class to represent the data extracted from the events for the CosmosDB metrics
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.AccountName">
+            <summary>
+            Gets the name of the CosmosDB account
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Count">
+            <summary>
+            Gets the number of signals captured in this event
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.CounterType">
+            <summary>
+            Gets the counter type
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.DisplayName">
+            <summary>
+            Gets the display name of the counter
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.DisplayUnits">
+            <summary>
+            Gets the display units of the counter
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.EventHash">
+            <summary>
+            Gets a non-cryptographic hash code for the event payload
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.EventName">
+            <summary>
+            Gets the event name
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.EventSource">
+            <summary>
+            Gets the name of the issueing event source
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.IntervalSec">
+            <summary>
+            Get sthe inetrval in which metrics are published
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Max">
+            <summary>
+            Gets the maximum value of all measurements in this event
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Mean">
+            <summary>
+            Gets the mean value of all measurements in this event
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Metadata">
+            <summary>
+            Gets the metadata dictionary
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.MetadataString">
+            <summary>
+            Gets the metadata string
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Min">
+            <summary>
+            Gets the minimum value of all measurements in this event
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Name">
+            <summary>
+            Gets the counter name
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Operation">
+            <summary>
+            Gets the identifier of the CosmosDB operation
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Percentiles">
+            <summary>
+            Gets the requested percentiles of all measurements in this event
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.QueryName">
+            <summary>
+            Gets the logical name of the query that was passed into the MonitoringFeedIterator
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.RawValues">
+            <summary>
+            Gets the raw measurements in this event
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Resource">
+            <summary>
+            Gets the identifier of the CosmosDB resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.Series">
+            <summary>
+            Gets information about time series specification - like the interval
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData.StandardDeviation">
+            <summary>
+            Gets the standard deviation of all measurements in this event
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricNames">
+            <summary>
+            Constant metric names
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricNames.Failures">
+            <summary>
+            Metric for number of failures in a certain scope like QueryPage
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricNames.LatencyMS">
+            <summary>
+            Metric for latency of a certain scope like request, query or query page in milliseconds
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricNames.RequestCharge">
+            <summary>
+            Metric for total consumed RUs for a certain scope like request, query or query page
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricNames.RequestCount">
+            <summary>
+            Metric for number of requests in a certain scope like Query or QueryPage
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventListenerBase">
+            <summary>
+            Base class for event listeners processing CosmsoDB metrics.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventListenerBase.ShouldSuppressMetric(Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData)">
+            <summary>
+            Can be used to apply filtering on which metrics should be emitted. By default no metrics
+            are getting suppressed.
+            </summary>
+            <param name="metricEvent">
+            The metric event details
+            </param>
+            <returns>
+            True if the metric should be suppressed. False otherwise. The default implementation
+            returns false.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventListenerBase.OnMetricWritten(Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData)">
+            <summary>
+            Used to process metric events
+            </summary>
+            <param name="metricEvent">
+            The metric event details
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventListenerBase.OnEventWritten(System.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Processes CosmosDB metrics. Any events from non-CosmosDB metrics are ignored.
+            </summary>
+            <param name="eventData">
+            The event arguments for the written event
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventSource">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventSource.FullyQualifiedName">
+            <summary>
+            The fully qualified name of the CosmosMonitoringMetricsEventSource
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventSource.dummyCounter">
+            <summary>
+            Due to a bug reported here: https://github.com/dotnet/corefx/issues/30904 it is
+            necessary to register at least one EventCounter in the EventSource ctor to ensure that
+            the counter group subscribes to the EnableEvents command
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventSource.SingletonInstance">
+            <summary>
+            Gets the singleton instance of this event source
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventSource.ConfigurationAllowed">
+            <summary>
+            Gets a flag indicating whether configuration changes are still allowed
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventSource.MaxRawValueCount">
+            <summary>
+            Gets or sets the maximum number of raw values that will be emitted into a single event
+            payload. This impacts the buffer size used by each counter instance. The default value
+            is 100 - it can be reduced to reduce the overhead of each counter instance or increased
+            to reduce the chattiness (numer of events per polling interval would increase if more
+            raw values are written).
+            </summary>
+            <remarks>
+            The configuration can only be changed before the first counter instance has been
+            created. This means any changes need to be made early during initialization of the process.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventSource.QuantileDefinition">
+            <summary>
+            Gets or sets quantile definition that should be used to calculate percentiles. The
+            default is <see cref="F:Microsoft.Azure.Cosmos.Extensions.Logging.QuantileDefinition.R8" />
+            </summary>
+            <remarks>
+            The configuration can only be changed before the first counter instance has been
+            created. This means any changes need to be made early during initialization of the process.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricsEventSource.RequestedPercentiles">
+            <summary>
+            Gets or sets the requested percentiles. By default P50, P90, P95, P99 and P99.9 are
+            emitted in the event payload. If more or fewer percentiles are needed this can be
+            changed here.
+            </summary>
+            <remarks>
+            The configuration can only be changed before the first counter instance has been
+            created. This means any changes need to be made early during initialization of the process.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringOperationNames">
+            <summary>
+            Constant operation names used in metrics and logs
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringOperationNames.Query">
+            <summary>
+            Operation name for query metrics and logs
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringOperationNames.QueryPage">
+            <summary>
+            Operation name for query page metrics and logs
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringOperationNames.QueryPageRequest">
+            <summary>
+            Operation name for query page request metrics and logs
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringRequestHandler">
+            <summary>
+            RequestHandler pipeline that is emitting logs and metrics for all CosmosDB requests
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringRequestHandler.#ctor(System.Uri,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringRequestHandler" /> with the
+            specified account endpoint. Logs and metrics will be emitted for the specified listeners.
+            </summary>
+            <param name="accountEndpoint">
+            The CosmosDB account endpoint
+            </param>
+            <param name="logger">
+            The logger that should be used to emit telemetry regarding requests to the CosmosDB service
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringRequestHandler.#ctor(System.Uri,Microsoft.Extensions.Logging.ILogger,Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringRequestHandler" /> with the
+            specified account endpoint. Logs and metrics will be emitted for the specified listeners.
+            </summary>
+            <param name="accountEndpoint">
+            The CosmosDB account endpoint
+            </param>
+            <param name="logger">
+            The logger that should be used to emit telemetry regarding requests to the CosmosDB service
+            </param>
+            <param name="eventProvider">
+            An event provider that can be used to override the <see cref="T:Microsoft.Extensions.Logging.EventId" /> provider. This
+            can be necessary when a caller wants to define the id-namespace for events.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringRequestHandler.SendAsync(Microsoft.Azure.Cosmos.RequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Processes the current <see cref="T:Microsoft.Azure.Cosmos.RequestMessage" /> in the current handler and sends the
+            current <see cref="T:Microsoft.Azure.Cosmos.RequestMessage" /> to the next handler in the chain.
+            </summary>
+            <param name="request">
+            <see cref="T:Microsoft.Azure.Cosmos.RequestMessage" /> received by the handler.
+            </param>
+            <param name="cancellationToken">
+            <see cref="T:System.Threading.CancellationToken" /> received by the handler.
+            </param>
+            <returns>
+            An instance of <see cref="T:Microsoft.Azure.Cosmos.ResponseMessage" />.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringRequestHandler.GetAdditionalScopeProperties(Microsoft.Azure.Cosmos.RequestMessage,Microsoft.Azure.Cosmos.ResponseMessage)">
+            <summary>
+            Retrieves additional properties, which should be added to the scope of the request
+            diagnostic traces. The default is null - which means no additional proeprties are added
+            to the scope.
+            </summary>
+            <param name="request">
+            The request sent to CosmosDB
+            </param>
+            <param name="response">
+            The retrieved response
+            </param>
+            <returns>
+            Any additional properties, which should be added to the scope of the request diagnostic traces.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringRequestHandler.GetDimensionNamesCore">
+            <summary>
+            Get the names of the custom dimensions for the request diagnostic Perf Counters.
+            </summary>
+            <remarks>
+            The default dimensions being used are "Account", "Resource" and "Operation"
+            </remarks>
+            <returns>
+            The names of the custom dimensions for the request diagnostic Perf Counters
+            </returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.LoggingComosMonitoringMetricEventListener">
+            <summary>
+            Event listener that will emit perf counter events to an ILogger
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.LoggingComosMonitoringMetricEventListener.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Crates and instance of the <see cref="T:Microsoft.Azure.Cosmos.Monitoring.LoggingComosMonitoringMetricEventListener" />
+            using the default event provider
+            </summary>
+            <param name="logger">
+            The ILogger instance that shoudl be used to emit the perf counter events
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.LoggingComosMonitoringMetricEventListener.#ctor(Microsoft.Extensions.Logging.ILogger,Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringEventProvider)">
+            <summary>
+            Crates and instance of the <see cref="T:Microsoft.Azure.Cosmos.Monitoring.LoggingComosMonitoringMetricEventListener" />
+            using the provided event provider
+            </summary>
+            <param name="logger">
+            The ILogger instance that shoudl be used to emit the perf counter events
+            </param>
+            <param name="eventProvider">
+            The event provider
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.LoggingComosMonitoringMetricEventListener.OnMetricWritten(Microsoft.Azure.Cosmos.Monitoring.CosmosMonitoringMetricEventData)">
+            <summary>
+            Emits the traces for the event vis ILogger
+            </summary>
+            <param name="metricEvent">
+            The metric event details
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition">
+            <summary>
+            Helper class allowing to retrieve parameters specified for the query definition to allo
+            logging tehse parameetr values.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition.#ctor(System.String)">
+             <summary>
+             Create a <see cref="T:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition" />
+             </summary>
+             <param name="query">
+             A valid Cosmos SQL query "Select * from test t"
+             </param>
+             <example>
+             <code language="c#">
+            <![CDATA[
+            var query = new ParameterizedQueryDefinition(
+            "select * from t where t.Account = @account")
+            .WithParameter("@account", "12345");
+            ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition.GetDimensionNames">
+            <summary>
+            Returns the dimension names of the query
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition.GetDimensions(System.String,System.String,System.String)">
+            <summary>
+            Returns the dimensions of the query
+            </summary>
+            <param name="account">
+            The account name
+            </param>
+            <param name="resource">
+            The identifier of the container resource
+            </param>
+            <param name="queryName">
+            The logical query name
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition.GetParameters">
+            <summary>
+            Returns the parameters of the query
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition.WithDimension(System.String,System.Object)">
+            <summary>
+            Adds a custom dimension value to the SQL query
+            </summary>
+            <param name="name">
+            The name of the custom dimension.
+            </param>
+            <param name="value">
+            The value for the custom dimension.
+            </param>
+            <remarks>
+            If the same name is added again it will replace the original value
+            </remarks>
+            <returns>
+            An instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition" />.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition.WithParameter(System.String,System.Object)">
+             <summary>
+             Add parameters to the SQL query
+             </summary>
+             <param name="name">
+             The name of the parameter.
+             </param>
+             <param name="value">
+             The value for the parameter.
+             </param>
+             <remarks>
+             If the same name is added again it will replace the original value
+             </remarks>
+             <example>
+             <code language="c#">
+            <![CDATA[
+            var query = new ParameterizedQueryDefinition(
+            "select * from t where t.Account = @account")
+            .WithParameter("@account", "12345");
+            ]]>
+             </code>
+             </example>
+             <returns>
+             An instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition" />.
+             </returns>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition.WithParameter(System.String,System.Object,System.Boolean)">
+             <summary>
+             Add parameters to the SQL query
+             </summary>
+             <param name="name">
+             The name of the parameter.
+             </param>
+             <param name="value">
+             The value for the parameter.
+             </param>
+             <param name="useAsDimension">
+             A value indicating whether this parameter should be used as dimension for
+             the relevant perf counters
+             </param>
+             <remarks>
+             If the same name is added again it will replace the original value
+             </remarks>
+             <example>
+             <code language="c#">
+            <![CDATA[
+            var query = new ParameterizedQueryDefinition(
+            "select * from t where t.Account = @account")
+            .WithParameter("@account", "12345");
+            ]]>
+             </code>
+             </example>
+             <returns>
+             An instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition" />.
+             </returns>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.QueryInformation">
+            <summary>
+            Encapsulates the details of a query for logging and metrics
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.QueryInformation.#ctor(System.String,System.String,Microsoft.Azure.Cosmos.Monitoring.ParameterizedQueryDefinition,System.Boolean)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.Azure.Cosmos.Monitoring.QueryInformation" />
+            </summary>
+            <param name="id">
+            A unique identifier for a query instance
+            </param>
+            <param name="name">
+            A logical name for the query. The query name is used to create different instances of
+            metrics for different logical query types
+            </param>
+            <param name="queryDefinition">
+            The parameterized query definition
+            </param>
+            <param name="shouldLogQueryParameters">
+            An indication whether query parameter values should be logged
+            </param>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.QueryInformation.Id">
+            <summary>
+            Gets the unique identifier of a query instance
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.QueryInformation.Name">
+            <summary>
+            Gets the logical name of the query
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.QueryInformation.QueryDefinition">
+            <summary>
+            Gets the parameterized definition of the query definition
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Cosmos.Monitoring.QueryInformation.ShouldLogQueryParameters">
+            <summary>
+            Gets an indication whether query parameter values should be logged
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Cosmos.Monitoring.UriFactory">
+             <summary>
+             Helper class to assist in creating the various Uris needed for use with the DocumentClient
+             instance in the Azure Cosmos DB service.
+             </summary>
+             <example>
+             The example below uses UriFactory to create a DocumentCollectionLink and then uses that to
+             create a Document.
+             <code language="c#">
+            <![CDATA[
+            Uri collUri = UriFactory.CreateDocumentCollectionUri("MyDb", "MyCollection");
+            var doc = await client.CreateDocumentAsync(collUri, new {id = "MyDoc"});
+            ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Microsoft.Azure.Cosmos.Monitoring.UriFactory.CreateDocumentCollectionUri(System.String,System.String)">
+            <summary>
+            Given a database and collection id, this creates a collection link.
+            </summary>
+            <param name="databaseId">
+            The database id
+            </param>
+            <param name="collectionId">
+            The collection id
+            </param>
+            <returns>
+            A collection link in the format of /dbs/{0}/colls/{1}/ with {0} being a Uri escaped
+            version of the <paramref name="databaseId" /> and {1} being <paramref
+            name="collectionId" />
+            </returns>
+            <remarks>
+            Would be used when updating or deleting a collection, creating a document, a stored
+            procedure, a trigger, a user defined function, or when executing a query with
+            CreateDocumentQuery in Azure Cosmos DB.
+            </remarks>
+            <seealso cref="M:System.Uri.EscapeUriString(System.String)" />
+        </member>
+    </members>
+</doc>
